@@ -1,0 +1,104 @@
+@startuml
+
+package model {
+    class User {
+        - id : int
+        - name : String
+        - email : String
+        - password : String
+        + getId() : int
+        + getName() : String
+        + getEmail() : String
+        + getPassword() : String
+    }
+
+    class Account {
+        - id : int
+        - userId : int
+        - balance : BigDecimal
+        - createdAt : LocalDateTime
+        + getId() : int
+        + getUserId() : int
+        + getBalance() : BigDecimal
+        + getCreatedAt() : LocalDateTime
+    }
+
+    class Transaction {
+        - id : int
+        - fromAccount : int
+        - toAccount : int
+        - amount : BigDecimal
+        - type : String
+        - timestamp : LocalDateTime
+        + getId() : int
+        + getFromAccount() : int
+        + getToAccount() : int
+        + getAmount() : BigDecimal
+        + getType() : String
+        + getTimestamp() : LocalDateTime
+    }
+}
+
+package repository {
+    class UserRepository {
+        + create(user: User) : void
+        + findByEmail(email: String) : User
+        + findById(id: int) : User
+    }
+
+    class AccountRepository {
+        + create(account: Account) : void
+        + findById(id: int) : Account
+        + updateBalance(id: int, balance: BigDecimal) : void
+    }
+
+    class TransactionRepository {
+        + create(transaction: Transaction) : void
+        + findByAccountId(accountId: int) : List<Transaction>
+    }
+}
+
+package service {
+    class AuthService {
+        + register(name: String, email: String, password: String) : User
+        + login(email: String, password: String) : User
+    }
+
+    class AccountService {
+        + createAccount(userId: int, initialBalance: BigDecimal) : void
+        + deposit(accountId: int, amount: BigDecimal) : void
+        + withdraw(accountId: int, amount: BigDecimal) : void
+        + transfer(fromAccount: int, toAccount: int, amount: BigDecimal) : void
+    }
+
+    class TransactionService {
+        + logTransaction(transaction: Transaction) : void
+        + getTransactions(accountId: int) : List<Transaction>
+    }
+}
+
+package controller {
+    class BankController {
+        + register(name: String, email: String, password: String) : User
+        + login(email: String, password: String) : User
+        + createAccount(userId: int, initialBalance: BigDecimal) : void
+        + deposit(accountId: int, amount: BigDecimal) : void
+        + withdraw(accountId: int, amount: BigDecimal) : void
+        + transfer(fromAccount: int, toAccount: int, amount: BigDecimal) : void
+        + getTransactions(accountId: int) : List<Transaction>
+    }
+}
+
+User "1" -- "0.*" Account : owns
+Account "1" -- "0.*" Transaction : contains
+
+BankController --> AuthService
+BankController --> AccountService
+BankController --> TransactionService
+
+AuthService --> UserRepository
+AccountService --> AccountRepository
+AccountService --> TransactionRepository
+TransactionService --> TransactionRepository
+
+@enduml
