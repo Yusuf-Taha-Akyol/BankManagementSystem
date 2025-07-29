@@ -6,6 +6,7 @@ package model {
         - name : String
         - email : String
         - password : String
+	- isDeleted : boolean
         + getId() : int
         + getName() : String
         + getEmail() : String
@@ -43,7 +44,11 @@ package repository {
     class UserRepository {
         + create(user: User) : void
         + findByEmail(email: String) : User
-        + findById(id: int) : User
+        + findById(userId: int) : User
+	+ findAll() : List<User>
+	+ update(userId: int) : void
+	+ safeDelete(userId: int) : void
+	+ hardDelete(userId: int) : void
     }
 
     class AccountRepository {
