@@ -15,13 +15,13 @@ public class UserRepository {
         String sql = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
 
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
 
-            ps.executeUpdate();
-            ps.close();
+            stmt.executeUpdate();
+            stmt.close();
             System.out.println("User created successfully");
             conn.close();
         } catch (Exception e){

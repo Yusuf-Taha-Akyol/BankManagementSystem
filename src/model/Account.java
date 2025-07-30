@@ -9,7 +9,7 @@ public class Account {
     private BigDecimal balance;
     private LocalDateTime createdAt;
 
-    public Account(int id, int userId, BigDecimal balance, LocalDateTime createdAt) {
+    public Account(int id, int userId, BigDecimal balance) {
         this.id = id;
         this.userId = userId;
         this.balance = balance;
