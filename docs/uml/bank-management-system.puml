@@ -8,19 +8,24 @@ package model {
         - password : String
 	- isDeleted : boolean
         + getId() : int
+	+ setId(id: int) : void
         + getName() : String
+	+ setName(name: String) : void
         + getEmail() : String
+	+ setEmail(email: String) : void
         + getPassword() : String
+	+ setPassword(password : String) : void
     }
 
     class Account {
         - id : int
         - userId : int
-        - balance : BigDecimal
+        - balance : double
         - createdAt : LocalDateTime
+	- isDeleted : boolean
         + getId() : int
         + getUserId() : int
-        + getBalance() : BigDecimal
+        + getBalance() : double
         + getCreatedAt() : LocalDateTime
     }
 
@@ -28,13 +33,13 @@ package model {
         - id : int
         - fromAccount : int
         - toAccount : int
-        - amount : BigDecimal
+        - amount : double
         - type : String
         - timestamp : LocalDateTime
         + getId() : int
         + getFromAccount() : int
         + getToAccount() : int
-        + getAmount() : BigDecimal
+        + getAmount() : double
         + getType() : String
         + getTimestamp() : LocalDateTime
     }
@@ -53,8 +58,12 @@ package repository {
 
     class AccountRepository {
         + create(account: Account) : void
-        + findById(id: int) : Account
-        + updateBalance(id: int, balance: BigDecimal) : void
+        + findByAccountId(id: int) : Account
+	+ findByUserId(userId: int) : Account
+        + updateBalance(id: int, balance: double) : void
+	+ findAll() : List<Account>
+	+ safeDelete(accountId : int) : void
+	+ hardDelete(accountId : int) : void
     }
 
     class TransactionRepository {
@@ -70,10 +79,10 @@ package service {
     }
 
     class AccountService {
-        + createAccount(userId: int, initialBalance: BigDecimal) : void
-        + deposit(accountId: int, amount: BigDecimal) : void
-        + withdraw(accountId: int, amount: BigDecimal) : void
-        + transfer(fromAccount: int, toAccount: int, amount: BigDecimal) : void
+        + createAccount(userId: int, initialBalance: double) : void
+        + deposit(accountId: int, amount: double) : void
+        + withdraw(accountId: int, amount: double) : void
+        + transfer(fromAccount: int, toAccount: int, amount: double) : void
     }
 
     class TransactionService {
@@ -87,9 +96,9 @@ package controller {
         + register(name: String, email: String, password: String) : User
         + login(email: String, password: String) : User
         + createAccount(userId: int, initialBalance: BigDecimal) : void
-        + deposit(accountId: int, amount: BigDecimal) : void
-        + withdraw(accountId: int, amount: BigDecimal) : void
-        + transfer(fromAccount: int, toAccount: int, amount: BigDecimal) : void
+        + deposit(accountId: int, amount: double) : void
+        + withdraw(accountId: int, amount: double) : void
+        + transfer(fromAccount: int, toAccount: int, amount: double) : void
         + getTransactions(accountId: int) : List<Transaction>
     }
 }

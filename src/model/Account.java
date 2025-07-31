@@ -6,13 +6,21 @@ import java.time.LocalDateTime;
 public class Account {
     private int id;
     private int userId;
-    private BigDecimal balance;
+    private double balance;
     private LocalDateTime createdAt;
+    private boolean isDeleted = false;
 
-    public Account(int id, int userId, BigDecimal balance) {
+    public Account(int userId, double balance) {
+        this.userId = userId;
+        this.balance = balance;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public Account(int id, int userId, double balance, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.balance = balance;
+        this.createdAt = createdAt;
     }
 
     public int getId() {
@@ -31,11 +39,11 @@ public class Account {
         this.userId = userId;
     }
 
-    public BigDecimal getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

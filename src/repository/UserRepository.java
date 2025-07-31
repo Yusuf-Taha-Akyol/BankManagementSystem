@@ -43,9 +43,8 @@ public class UserRepository {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                boolean isDeleted = rs.getBoolean("is_deleted");
 
-                User user = new User(id,name,email,password, isDeleted);
+                User user = new User(id,name,email,password);
 
                 stmt.close();
                 rs.close();
@@ -59,7 +58,7 @@ public class UserRepository {
     }
 
     public User findByEmail(String userEmail) {
-        String sql = "SELECT * FROM users WHERE email = ? and is_deleted = FALSE";
+        String sql = "SELECT * FROM users WHERE email = ? AND is_deleted = FALSE";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -72,9 +71,8 @@ public class UserRepository {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                Boolean isDeleted = rs.getBoolean("is_deleted");
 
-                User user = new User(id,name,email,password, isDeleted);
+                User user = new User(id,name,email,password);
 
                 stmt.close();
                 rs.close();
@@ -90,7 +88,7 @@ public class UserRepository {
     }
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM users WHERE is_deleted = FALSE";
+        String sql = "SELECT * FROM users WHERE is_deleted = FALSE ORDER BY id ASC";
 
         List<User> users = new ArrayList<>();
 
@@ -103,12 +101,10 @@ public class UserRepository {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                Boolean isDeleted = rs.getBoolean("is_deleted");
-                User user = new User(id,name,email,password, isDeleted);
 
+                User user = new User(id,name,email,password);
                 users.add(user);
             }
-
             rs.close();
             stmt.close();
             System.out.println("All users were found successfully");
@@ -117,7 +113,6 @@ public class UserRepository {
             System.out.println("Error in find all users : " + e.getMessage());
             return new ArrayList<>();
         }
-
     }
 
     public void update(User user, int userId) {
@@ -159,7 +154,6 @@ public class UserRepository {
 
         try{
             PreparedStatement stmt = conn.prepareStatement(sql);
-
             stmt.setInt(1, userId);
 
             stmt.executeUpdate();

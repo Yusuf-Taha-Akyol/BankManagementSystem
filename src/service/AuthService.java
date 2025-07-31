@@ -23,7 +23,7 @@ public class AuthService {
             if(userRepository.findByEmail(email) != null) {
                 System.out.println("Email already exists");
             }else{
-                User user = new User(0,name,email,password,false);
+                User user = new User(0,name,email,password);
                 userRepository.create(user);
             }
         }
