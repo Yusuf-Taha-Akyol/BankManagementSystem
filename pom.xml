@@ -8,7 +8,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <!-- PostgreSQL JDBC Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

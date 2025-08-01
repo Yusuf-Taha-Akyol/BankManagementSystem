@@ -1,24 +1,30 @@
 package model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Transaction {
     private int id;
     private int fromAccountId;
     private int toAccountId;
-    private BigDecimal amount;
+    private double amount;
 
     private String type;
-    private LocalDateTime timestamp;
+    private LocalDateTime transactionDate;
 
-    public Transaction(int id, int fromAccountId, int toAccountId, BigDecimal amount, String type, LocalDateTime timestamp) {
-        this.id = id;
+    public Transaction(int fromAccountId, int toAccountId, double amount, String type, LocalDateTime transactionDate) {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.amount = amount;
         this.type = type;
-        this.timestamp = timestamp;
+        this.transactionDate = transactionDate;
+    }
+
+    public Transaction(int fromAccountId, int toAccountId, double amount, String type) {
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
+        this.amount = amount;
+        this.type = type;
+        this.transactionDate = LocalDateTime.now();
     }
 
     public int getId() {
@@ -45,11 +51,11 @@ public class Transaction {
         this.toAccountId = toAccountId;
     }
 
-    public BigDecimal getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -61,11 +67,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }
