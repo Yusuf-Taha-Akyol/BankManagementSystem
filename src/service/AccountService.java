@@ -10,7 +10,7 @@ import java.util.*;
 public class AccountService {
     UserRepository userRepository = new UserRepository();
     AccountRepository accountRepository = new AccountRepository();
-    public void createAccount(int userId,int initialBalance){
+    public void createAccount(int userId,double initialBalance){
         if(userRepository.findByUserId(userId)==null){
             System.out.println("There is no account with userId " + userId);
         }else if (initialBalance < 0){

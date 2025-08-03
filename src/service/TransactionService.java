@@ -9,7 +9,7 @@ import java.util.List;
 public class TransactionService {
     AccountService accountService = new AccountService();
     TransactionRepository transactionRepository = new TransactionRepository();
-    public void logTransaction(int fromAccountId,int toAccountId,int amount,String type) {
+    public void logTransaction(int fromAccountId,int toAccountId,double amount,String type) {
         Account fromAccount = accountService.getAccountById(fromAccountId);
         Account toAccount = accountService.getAccountById(toAccountId);
         if (fromAccountId == toAccountId || fromAccountId < 1 || toAccountId < 1) {
