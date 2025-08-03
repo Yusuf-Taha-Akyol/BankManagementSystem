@@ -66,8 +66,6 @@ public class AccountService {
         }else{
             accountRepository.updateBalance(fromAccount,fromAccount.getBalance()-amount);
             accountRepository.updateBalance(toAccount,toAccount.getBalance() + amount);
-
-            Transaction transaction = new Transaction(fromAccountId, toAccountId, amount, type);
             return true;
         }
 

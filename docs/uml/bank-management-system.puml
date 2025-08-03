@@ -86,7 +86,7 @@ package service {
     }
 
     class TransactionService {
-        + logTransaction(transaction: Transaction) : void
+        + logTransaction(fromAccount: int, toAccount: int, amount: int, type: String) : void
         + getTransactions(accountId: int) : List<Transaction>
     }
 }

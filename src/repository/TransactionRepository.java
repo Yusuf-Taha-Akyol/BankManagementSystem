@@ -18,24 +18,18 @@ public class TransactionRepository {
     public void create(Transaction transaction) {
         String sql = "INSERT INTO transactions (from_account,to_account,amount,type) VALUES (?,?,?,?)";
 
-        boolean isTransferApproved = accountService.transfer(transaction.getFromAccountId(), transaction.getToAccountId(), transaction.getAmount(), transaction.getType());
-        if(isTransferApproved){
-            System.out.println("Transfer approved");
-            try{
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, transaction.getFromAccountId());
-                stmt.setInt(2, transaction.getToAccountId());
-                stmt.setDouble(3, transaction.getAmount());
-                stmt.setString(4, transaction.getType());
+        try{
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, transaction.getFromAccountId());
+            stmt.setInt(2, transaction.getToAccountId());
+            stmt.setDouble(3, transaction.getAmount());
+            stmt.setString(4, transaction.getType());
 
-                stmt.executeUpdate();
-                stmt.close();
-                System.out.println("Transaction created successfully");
-            }catch (Exception e){
-                System.out.println("Error in creating transaction : " + e.getMessage());
-            }
-        }else {
-            System.out.println("Insufficient funds");
+            stmt.executeUpdate();
+            stmt.close();
+            System.out.println("Transaction created successfully");
+        }catch (Exception e){
+            System.out.println("Error in creating transaction : " + e.getMessage());
         }
     }
 
